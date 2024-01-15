@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo"called this function "
+
 # Function to install npm
 install_npm() {
     if ! command -v npm &> /dev/null; then
@@ -70,12 +72,27 @@ permission_dir() {
     chown -R $second_element:$second_element "$current_directory/encoded_videos"
 }
 
+install_git(){
+       if command -v git &> /dev/null; then
+        echo "Git is already installed on this system."
+    else
+        echo "Git is not installed. Installing Git..."
+        sudo apt-get update  # You may need to adapt this line based on your Linux distribution
+        sudo apt-get install -y git
+        echo "Git has been successfully installed."
+    fi
+
+}
+
 GREEN="\e[32m"
 BLUE="\e[36m"
 RESET="\e[0m"
 
 echo "${BLUE}Installing npm packages...${RESET}"
 install_npm
+
+echo "${BLUE} Installing git ${RESET}"
+install_git
 
 echo "\n${BLUE}Installing pip...${RESET}"
 install_pip
